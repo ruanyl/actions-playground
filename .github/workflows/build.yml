@@ -19,6 +19,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    env:
+      RELEASE_TAG: 1.2.0-nightly.${{ github.run_id }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -31,11 +34,14 @@ jobs:
       
       - uses: actions/upload-artifact@v3
         with:
-          name: build-1.2.0-nightly.${{ github.run_id }}
+          name: build-${{ env.RELEASE_TAG }}
           path: artifact/build.txt
+      
+      - run: git tag ${{ env.RELEASE_TAG }}
+      - run: git push origin ${{ env.RELEASE_TAG }}
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: artifact/build.txt
-          tag_name: 1.2.0-nightly.${{ github.run_id }}
+          tag_name: ${{ env.RELEASE_TAG }}
