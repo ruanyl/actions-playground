@@ -31,5 +31,5 @@ jobs:
       
       - uses: actions/upload-artifact@v3
         with:
-          name: build-${{ github.sha }}
+          name: build-1.2.0-nightly.${{ github.run_id }}
           path: artifact/build.txt
