@@ -31,5 +31,5 @@ jobs:
       
       - uses: actions/upload-artifact@v3
         with:
-          name: build-${{ env.GITHUB_SHA }}
+          name: build-${GITHUB_SHA}
           path: artifact/build.txt
